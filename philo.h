@@ -5,6 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <pthread.h>
 
 typedef struct s_table
 {
@@ -20,6 +21,8 @@ typedef struct s_table
 
 typedef struct s_philo
 {
+	int			id;
+	pthread_t	thread;
 
 }   t_philo;
 

@@ -1,6 +1,6 @@
 NAME = philo
 
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -pthread
 
 OBJDIR = ./build
 OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)

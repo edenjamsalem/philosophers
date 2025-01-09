@@ -67,6 +67,15 @@ double	calc_time(struct timeval *start, struct timeval *end)
 	return ((double)secs + (double)micro_secs / 1000000.0);
 }
 
+void	routine_l()
+{
+
+}
+
+void	routine_r()
+{
+
+}
 
 int	main(int argc, char **argv)
 {
