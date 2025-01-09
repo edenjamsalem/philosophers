@@ -13,6 +13,7 @@ typedef struct s_table
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				no_times_to_eat;
+	int				*forks;
 	struct timeval	start_time;
 	struct timeval	end_time;
 }   t_table;

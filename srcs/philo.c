@@ -36,6 +36,7 @@ int	check_input(int argc, char **argv)
 	return (1);
 }
 
+
 int	init_table(t_table *table, int argc, char **argv)
 {
 	table->no_philos = ft_atoi(argv[0]);
@@ -45,6 +46,7 @@ int	init_table(t_table *table, int argc, char **argv)
 	table->no_times_to_eat = 0;
 	if (argc == 5)
 		table->no_times_to_eat = ft_atoi(argv[3]);
+	table->forks = init_forks(table->no_philos);
 	if (gettimeofday(&table->start_time, NULL) == -1)
 		return (0);
 	return (1);
