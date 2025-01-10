@@ -48,6 +48,22 @@ void	cleanup_mutexes(pthread_mutex_t *forks, int count)
 	}
 }
 
+void	run_infinitely(t_philo *philos, t_table *table)
+{
+	int	i;
+
+	while (1)
+	{
+		i = 0;
+		while (i < table->no_philos)
+		{
+			pthread_create((philos + i)->thread, NULL, routine(philos + i), );
+			i++;
+		}
+
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_table		table;
@@ -55,6 +71,11 @@ int	main(int argc, char **argv)
 
 	if (!check_input(argc, argv) || !init_table(&table, argc, argv))
 		return (0);
-
-	philos = init_philos(table.no_philos);
+	philos = init_philos(table.no_philos, &table);
+	if (!philos)
+		return (0);
+	if (!table.no_times_to_eat)
+		run_infinitely(philos, &table);
+	else
+		run_until_finished(philos, &table);
 }

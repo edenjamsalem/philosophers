@@ -2,7 +2,7 @@
 
 static void	assign_forks(t_philo *philo, t_table *table)
 {
-	if (philo->seat_nbr == 0)
+	if (philo->seat_nbr == 1)
 		philo->right_fork = table->forks[table->no_philos];
 	else
 		philo->right_fork = table->forks[philo->seat_nbr - 1];
@@ -13,25 +13,29 @@ void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 {
 	t_philo	*philo;
 
+	philo->id = 0;
+	philo->thread = NULL;
+	philo->table = table;
 	philo->seat_nbr = seat_nbr;
 	assign_forks(philo, table);
+	philo->current_time = table->start_time;
 }
 
-int init_philos(int	no_philos, t_table *table)
+t_philo *init_philos(int no_philos, t_table *table)
 {
 	int		i;
 	t_philo	*philos;
 
 	philos = malloc(sizeof(t_philo) * no_philos);
 	if (!philos)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (i < no_philos)
 	{
 		init_philo(philos + i, table, i + 1);
 		i++;
 	}
-    
+	return (philos);
 }
 
 pthread_mutex_t	*init_forks(int count)

@@ -47,3 +47,5 @@ void    eat(t_philo *philo);
 void    think(t_philo *philo);
 
 void    sleep(t_philo *philo);
+
+int 	init_philos(int	no_philos, t_table *table);
