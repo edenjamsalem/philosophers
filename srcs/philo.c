@@ -1,7 +1,7 @@
 
 #include "../philo.h"
 
-int	check_int_input(int argc, char **argv)
+int	inputs_are_ints(int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -25,43 +25,15 @@ int	check_input(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 	{
-		printf("incorrect number of args");
+		printf("incorrect number of args\n");
 		return (0);
 	}
-	if (!check_int_input(argc, argv))
+	if (!inputs_are_ints(argc, argv))
 	{
-		printf("args must be integers");
+		printf("args must be integers\n");
 		return (0);
 	}
 	return (1);
-}
-
-void	cleanup_mutexes(pthread_mutex_t *forks, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		pthread_mutex_destroy(forks + i);
-		i++;
-	}
-}
-
-void	run_infinitely(t_philo *philos, t_table *table)
-{
-	int	i;
-
-	while (1)
-	{
-		i = 0;
-		while (i < table->no_philos)
-		{
-			pthread_create((philos + i)->thread, NULL, routine(philos + i), );
-			i++;
-		}
-
-	}
 }
 
 int	main(int argc, char **argv)
@@ -74,8 +46,12 @@ int	main(int argc, char **argv)
 	philos = init_philos(table.no_philos, &table);
 	if (!philos)
 		return (0);
+	run_threads(philos, &table);
 	if (!table.no_times_to_eat)
-		run_infinitely(philos, &table);
+		detach_threads(&table, philos);
 	else
-		run_until_finished(philos, &table);
+		join_threads(&table, philos);
+	sleep(5);
+//	free_philos(&table, philos);
+//	free_table(&table);
 }

@@ -7,17 +7,6 @@
 #include <sys/time.h>
 #include <pthread.h>
 
-typedef struct s_philo
-{
-	int				id;
-	pthread_t		thread;
-	int				seat_nbr;
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	right_fork;
-	struct timeval	current_time;
-	t_table			*table;
-}   t_philo;
-
 typedef struct s_table
 {
 	int				no_philos;
@@ -27,25 +16,55 @@ typedef struct s_table
 	int				no_times_to_eat;
 	pthread_mutex_t	*forks;
 	struct timeval	start_time;
-	struct timeval	end_time;
 }   t_table;
 
-int		ft_atoi(const char *str);
+typedef struct s_philo
+{
+	int				id;
+	pthread_t		thread;
+	int				seat_nbr;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	struct timeval	current_time;
+	t_table			*table;
+}   t_philo;
 
-void	*routine(void *arg);
+void			init_philo(t_philo *philo, t_table *table, int seat_nbr);
 
-double	calc_time_diff(struct timeval *start, struct timeval *end);
+t_philo			*init_philos(int no_philos, t_table *table);
 
-int 	get_time_stamp(t_philo *philo);
+pthread_mutex_t	*init_forks(int count);
 
-void    take_right_fork(t_philo *philo);
+int				init_table(t_table *table, int argc, char **argv);
 
-void    take_left_fork(t_philo *philo);
+int				ft_atoi(const char *str);
 
-void    eat(t_philo *philo);
+void			*routine(void *arg);
 
-void    think(t_philo *philo);
+double			calc_time_diff(struct timeval *start, struct timeval *end);
 
-void    sleep(t_philo *philo);
+int				get_time_stamp(t_table *table, t_philo *philo);
 
-int 	init_philos(int	no_philos, t_table *table);
+void			take_right_fork(t_table *table, t_philo *philo);
+
+void			take_left_fork(t_table *table, t_philo *philo);
+
+void			eating(t_table *table, t_philo *philo);
+
+void			thinking(t_table *table, t_philo *philo);
+
+void			sleeping(t_table *table, t_philo *philo);
+
+void			run_threads(t_philo *philos, t_table *table);
+
+void			join_threads(t_table *table, t_philo *philos);
+
+void			detach_threads(t_table *table, t_philo *philos);
+
+void	 		free_philos(t_table *table, t_philo *philos);
+
+void			free_table(t_table *table);
+
+void			destroy_mutexes(pthread_mutex_t *forks, int count);
+
+void			print_msg(char *msg, t_table *table, t_philo *philo);

@@ -3,18 +3,16 @@
 static void	assign_forks(t_philo *philo, t_table *table)
 {
 	if (philo->seat_nbr == 1)
-		philo->right_fork = table->forks[table->no_philos];
+		philo->right_fork = &table->forks[table->no_philos];
 	else
-		philo->right_fork = table->forks[philo->seat_nbr - 1];
-	philo->left_fork = table->forks[philo->seat_nbr];
+		philo->right_fork = &table->forks[philo->seat_nbr - 1];
+	philo->left_fork = &table->forks[philo->seat_nbr];
 }
 
 void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 {
-	t_philo	*philo;
-
 	philo->id = 0;
-	philo->thread = NULL;
+	philo->thread = 0;
 	philo->table = table;
 	philo->seat_nbr = seat_nbr;
 	assign_forks(philo, table);
@@ -51,7 +49,7 @@ pthread_mutex_t	*init_forks(int count)
 	{
 		if (pthread_mutex_init(forks + i, NULL) != 0)
 		{
-			cleanup_mutexes(forks, i - 1);
+			destroy_mutexes(forks, i - 1);
 			free(forks);
 			return (NULL);	
 		}
@@ -62,13 +60,13 @@ pthread_mutex_t	*init_forks(int count)
 
 int	init_table(t_table *table, int argc, char **argv)
 {
-	table->no_philos = ft_atoi(argv[0]);
-	table->time_to_die = ft_atoi(argv[1]);
-	table->time_to_eat = ft_atoi(argv[2]);
-	table->time_to_sleep = ft_atoi(argv[3]);
+	table->no_philos = ft_atoi(argv[1]);
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
 	table->no_times_to_eat = 0;
-	if (argc == 5)
-		table->no_times_to_eat = ft_atoi(argv[3]);
+	if (argc == 6)
+		table->no_times_to_eat = ft_atoi(argv[5]);
 	table->forks = init_forks(table->no_philos);
 	if (gettimeofday(&table->start_time, NULL) == -1)
 		return (0);

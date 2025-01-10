@@ -7,7 +7,13 @@ OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
 
 SRCDIR = srcs
 SRCS =	$(SRCDIR)/philo.c \
-		$(SRCDIR)/ft_atoi.c
+		$(SRCDIR)/actions.c \
+		$(SRCDIR)/init_fns.c \
+		$(SRCDIR)/routine.c \
+		$(SRCDIR)/time.c \
+		$(SRCDIR)/cleanup.c \
+		$(SRCDIR)/threads.c \
+		$(SRCDIR)/utils.c
 
 all: $(OBJDIR) $(NAME)
 

@@ -16,11 +16,11 @@ double	calc_time_diff(struct timeval *start, struct timeval *end)
 	return ((double)secs + (double)micro_secs / 1000000.0);
 }
 
-int get_time_stamp(t_philo *philo)
+int get_time_stamp(t_table *table, t_philo *philo)
 {
-    int  time_stamp;
+    float  time_stamp;
 
     gettimeofday(&philo->current_time, NULL);
-    time_stamp = calc_time_diff(&philo->table->start_time, &philo->current_time);
-    return (time_stamp);
+    time_stamp = calc_time_diff(&table->start_time, &philo->current_time);
+    return (time_stamp * 1000);
 }
