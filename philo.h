@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
@@ -15,6 +16,7 @@ typedef struct s_table
 	int				time_to_sleep;
 	int				no_times_to_eat;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_mutex;
 	struct timeval	start_time;
 }   t_table;
 
@@ -25,7 +27,7 @@ typedef struct s_philo
 	int				seat_nbr;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	struct timeval	current_time;
+	struct timeval	time_last_ate;
 	t_table			*table;
 }   t_philo;
 
@@ -43,13 +45,11 @@ void			*routine(void *arg);
 
 double			calc_time_diff(struct timeval *start, struct timeval *end);
 
-int				get_time_stamp(t_table *table, t_philo *philo);
+int				get_time_stamp(t_table *table);
 
-void			take_right_fork(t_table *table, t_philo *philo);
+bool			take_fork(pthread_mutex_t *fork, t_table *table, t_philo *philo);
 
-void			take_left_fork(t_table *table, t_philo *philo);
-
-void			eating(t_table *table, t_philo *philo);
+bool			eating(t_table *table, t_philo *philo);
 
 void			thinking(t_table *table, t_philo *philo);
 

@@ -4,6 +4,7 @@
 double	calc_time_diff(struct timeval *start, struct timeval *end)
 {
 	time_t secs;
+	time_t millisecs;
 	suseconds_t micro_secs;
 
 	secs = end->tv_sec - start->tv_sec;
@@ -13,14 +14,16 @@ double	calc_time_diff(struct timeval *start, struct timeval *end)
 		micro_secs += 1000000;
 		secs--;
 	}
-	return ((double)secs + (double)micro_secs / 1000000.0);
+	millisecs =((double)secs + (double)micro_secs / 1000000.0) * 1000; 
+	return (millisecs);
 }
 
-int get_time_stamp(t_table *table, t_philo *philo)
+int get_time_stamp(t_table *table)
 {
-    float  time_stamp;
+    float 			time_stamp;
+	struct timeval	current_time;
 
-    gettimeofday(&philo->current_time, NULL);
-    time_stamp = calc_time_diff(&table->start_time, &philo->current_time);
-    return (time_stamp * 1000);
+    gettimeofday(&current_time, NULL);
+    time_stamp = calc_time_diff(&table->start_time, &current_time);
+	return (time_stamp);
 }

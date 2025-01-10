@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 16:02:20 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/10 16:33:21 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:44:19 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,8 @@ int	ft_atoi(const char *str)
 
 void	print_msg(char *msg, t_table *table, t_philo *philo)
 {
-	printf("%d %d %s\n", get_time_stamp(table, philo), philo->seat_nbr, msg);
+	// PRINT MUTEX NOT WORKING
+	pthread_mutex_lock(&table->print_mutex);
+	printf("%d %d %s\n", get_time_stamp(table), philo->seat_nbr, msg);
+	pthread_mutex_unlock(&table->print_mutex);
 }

@@ -19,7 +19,8 @@ void	eat_infinitely(t_table *table, t_philo *philo)
 {
 	while (1)
 	{
-		eating(table, philo);
+		if (!eating(table, philo))
+			break ;
 		sleeping(table, philo);
 		thinking(table, philo);
 	}

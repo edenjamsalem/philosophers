@@ -16,7 +16,7 @@ void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 	philo->table = table;
 	philo->seat_nbr = seat_nbr;
 	assign_forks(philo, table);
-	philo->current_time = table->start_time;
+	philo->time_last_ate = table->start_time;
 }
 
 t_philo *init_philos(int no_philos, t_table *table)

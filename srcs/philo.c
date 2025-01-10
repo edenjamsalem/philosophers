@@ -51,7 +51,6 @@ int	main(int argc, char **argv)
 		detach_threads(&table, philos);
 	else
 		join_threads(&table, philos);
-	sleep(5);
-//	free_philos(&table, philos);
-//	free_table(&table);
+	free(philos);
+	free(table.forks);
 }
