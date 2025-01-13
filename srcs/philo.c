@@ -50,7 +50,7 @@ static bool	is_dead(t_table *table, t_philo *philo)
 	return (0);
 }
 
-bool	philos_died(t_table *table, t_philo *philos)
+bool	philo_died(t_table *table, t_philo *philos)
 {
 	int	i;
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv)
 	if (!table.no_times_to_eat)
 	{
 		detach_threads(&table, philos);
-		while (!philos_died(&table, philos));
+		while (!philo_died(&table, philos));
 	}
 	else
 		join_threads(&table, philos);

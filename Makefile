@@ -10,8 +10,6 @@ SRCS =	$(SRCDIR)/philo.c \
 		$(SRCDIR)/actions.c \
 		$(SRCDIR)/init_fns.c \
 		$(SRCDIR)/routine.c \
-		$(SRCDIR)/time.c \
-		$(SRCDIR)/cleanup.c \
 		$(SRCDIR)/threads.c \
 		$(SRCDIR)/utils.c
 

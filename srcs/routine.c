@@ -32,8 +32,6 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	table = philo->table;
-	if (philo->seat_nbr % 2 == 0)
-		usleep(table->time_to_sleep);
 	if (!table->no_times_to_eat)
 		eat_infinitely(table, philo);
 	else
