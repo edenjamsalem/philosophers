@@ -3,10 +3,10 @@
 static void	assign_forks(t_philo *philo, t_table *table)
 {
 	if (philo->seat_nbr == 1)
-		philo->right_fork = &table->forks[table->no_philos];
+		philo->right_fork = &table->forks[table->no_philos - 1];
 	else
-		philo->right_fork = &table->forks[philo->seat_nbr - 1];
-	philo->left_fork = &table->forks[philo->seat_nbr];
+		philo->right_fork = &table->forks[philo->seat_nbr - 2];
+	philo->left_fork = &table->forks[philo->seat_nbr - 1];
 }
 
 void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
@@ -17,6 +17,7 @@ void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 	philo->seat_nbr = seat_nbr;
 	assign_forks(philo, table);
 	philo->time_last_ate = table->start_time;
+	pthread_mutex_init(&philo->last_ate_mutex, NULL);
 }
 
 t_philo *init_philos(int no_philos, t_table *table)
@@ -70,6 +71,7 @@ int	init_table(t_table *table, int argc, char **argv)
 	table->forks = init_forks(table->no_philos);
 	if (gettimeofday(&table->start_time, NULL) == -1)
 		return (0);
+	pthread_mutex_init(&table->print_mutex, NULL);
 	return (1);
 }
 

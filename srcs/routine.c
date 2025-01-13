@@ -19,8 +19,7 @@ void	eat_infinitely(t_table *table, t_philo *philo)
 {
 	while (1)
 	{
-		if (!eating(table, philo))
-			break ;
+		eating(table, philo);
 		sleeping(table, philo);
 		thinking(table, philo);
 	}
@@ -33,6 +32,8 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	table = philo->table;
+	if (philo->seat_nbr % 2 == 0)
+		usleep(table->time_to_sleep);
 	if (!table->no_times_to_eat)
 		eat_infinitely(table, philo);
 	else

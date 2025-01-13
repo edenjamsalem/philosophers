@@ -18,6 +18,7 @@ typedef struct s_table
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	struct timeval	start_time;
+	pthread_t		monitor;
 }   t_table;
 
 typedef struct s_philo
@@ -27,6 +28,7 @@ typedef struct s_philo
 	int				seat_nbr;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	last_ate_mutex;
 	struct timeval	time_last_ate;
 	t_table			*table;
 }   t_philo;
@@ -47,9 +49,9 @@ double			calc_time_diff(struct timeval *start, struct timeval *end);
 
 int				get_time_stamp(t_table *table);
 
-bool			take_fork(pthread_mutex_t *fork, t_table *table, t_philo *philo);
+void			take_fork(pthread_mutex_t *fork, t_table *table, t_philo *philo);
 
-bool			eating(t_table *table, t_philo *philo);
+void			eating(t_table *table, t_philo *philo);
 
 void			thinking(t_table *table, t_philo *philo);
 
@@ -68,3 +70,10 @@ void			free_table(t_table *table);
 void			destroy_mutexes(pthread_mutex_t *forks, int count);
 
 void			print_msg(char *msg, t_table *table, t_philo *philo);
+
+bool	philos_died(t_table *table, t_philo *philos);
+// FOR TESTING ONLY
+
+void			print_table(t_table *table);
+
+void			print_philos(t_philo *philos, t_table *table);

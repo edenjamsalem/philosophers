@@ -36,6 +36,37 @@ int	check_input(int argc, char **argv)
 	return (1);
 }
 
+static bool	is_dead(t_table *table, t_philo *philo)
+{
+	struct timeval	current_time;
+	int				time_since_last_meal;
+
+	gettimeofday(&current_time, NULL);
+	pthread_mutex_lock(&philo->last_ate_mutex);
+	time_since_last_meal = calc_time_diff(&philo->time_last_ate, &current_time);
+	pthread_mutex_unlock(&philo->last_ate_mutex);
+	if (time_since_last_meal > table->time_to_die)
+		return (1);
+	return (0);
+}
+
+bool	philos_died(t_table *table, t_philo *philos)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->no_philos)
+	{
+		if (is_dead(table, philos + i))
+		{
+ 	        print_msg("died", table, philos + i);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_table		table;
@@ -48,9 +79,13 @@ int	main(int argc, char **argv)
 		return (0);
 	run_threads(philos, &table);
 	if (!table.no_times_to_eat)
+	{
 		detach_threads(&table, philos);
+		while (!philos_died(&table, philos));
+	}
 	else
 		join_threads(&table, philos);
+	destroy_mutexes(table.forks, table.no_philos);
 	free(philos);
 	free(table.forks);
 }

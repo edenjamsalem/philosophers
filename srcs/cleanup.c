@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 14:49:15 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/10 15:26:26 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:44:36 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,4 @@ void free_philos(t_table *table, t_philo *philos)
 void	free_table(t_table *table)
 {
 	destroy_mutexes(table->forks, table->no_philos);
-	free(table->forks);
 }
