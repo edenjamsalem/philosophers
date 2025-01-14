@@ -71,9 +71,4 @@ void			destroy_mutexes(pthread_mutex_t *forks, int count);
 
 void			print_msg(char *msg, t_table *table, t_philo *philo);
 
-bool	philo_died(t_table *table, t_philo *philos);
-// FOR TESTING ONLY
-
-void			print_table(t_table *table);
-
-void			print_philos(t_philo *philos, t_table *table);
+bool			philo_died(t_table *table, t_philo *philos);
