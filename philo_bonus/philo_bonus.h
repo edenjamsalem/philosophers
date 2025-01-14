@@ -22,8 +22,6 @@ typedef struct s_table
 	sem_t			*forks;
 	sem_t			*print_sem;
 	struct timeval	start_time;
-	pid_t			*child_pids;
-	pid_t			*child_status;
 }   t_table;
 
 typedef struct s_philo
@@ -33,6 +31,8 @@ typedef struct s_philo
 	t_table			*table;
 	int				is_dead;
 	pthread_t		monitor;
+	pid_t			pid;
+	int				status;
 }   t_philo;
 
 void			init_philo(t_philo *philo, t_table *table, int seat_nbr);
@@ -69,4 +69,6 @@ bool			is_dead(t_table *table, t_philo *philo);
 
 void			*check_if_dead(void *arg);
 
-void			kill_children(t_table *table);
+void			kill_children(t_table *table, t_philo *philos);
+
+bool			processes_running(t_table *table, t_philo *philos);

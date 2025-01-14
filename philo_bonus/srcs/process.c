@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 15:14:35 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/14 18:25:07 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:57:01 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	run_processes(t_philo *philos, t_table *table)
 	i = 0;
 	while (i < table->no_philos)
 	{
-		table->child_pids[i] = ft_fork();
-		if (table->child_pids[i] == 0)
+		(philos + i)->pid = ft_fork();
+		if ((philos + i)->pid == 0)
 		{
 			process(table, philos + i);
 		}

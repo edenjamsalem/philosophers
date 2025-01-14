@@ -36,75 +36,14 @@ int	check_input(int argc, char **argv)
 	return (1);
 }
 
-bool	philo_died(t_table *table, t_philo *philos)
+void	wait_for_pids(t_table *table, t_philo *philos)
 {
 	int	i;
 
 	i = 0;
 	while (i < table->no_philos)
 	{
-		if (table->child_status[i] != -1)
-		{
-			if (table->child_status && WIFEXITED(table->child_status[i]))
-				(philos + i)->is_dead = WEXITSTATUS(table->child_status[i]);
-			if ((philos + i)->is_dead)
-			{
-				kill_children(table);
-				print_msg("died", table, philos + i);
-				return (1);
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
-bool	check_process_finished(t_table *table, t_philo *philos)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->no_philos)
-	{
-		if (table->child_status[i] != -1)
-		{
-			if (WIFEXITED(table->child_status[i]))
-			{
-				(philos + i)->is_dead = WEXITSTATUS(table->child_status[i]);
-				if ((philos + i)->is_dead)
-				{
-					kill_children(table);
-					print_msg("died", table, philos + i);
-				}
-				table->child_status[i] = -1;
-				return (1);
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
-bool	processes_running(t_table *table, t_philo *philos)
-{
-	int	finished_count;
-
-	finished_count = 0;
-	while (finished_count < table->no_philos)
-	{
-		finished_count += check_process_finished(table, philos);
-	}
-	return (0);
-}
-
-void	wait_for_pids(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->no_philos)
-	{
-		waitpid(table->child_pids[i], table->child_status + i, 0);
+		waitpid((philos + i)->pid, &(philos + i)->status, 0);
 		i++;
 	}
 }
@@ -120,14 +59,14 @@ int	main(int argc, char **argv)
 	if (!philos)
 		return (0);
 	run_processes(philos, &table);
-	wait_for_pids(&table);
+	wait_for_pids(&table, philos);
 	if (!table.no_times_to_eat)
 	{
 		while (!philo_died(&table, philos));
 	}
 	else
 	{
-		while(processes_running(&table, philos));
+		while (processes_running(&table, philos));
 	}
 	cleanup_table(&table);
 	free(philos);
