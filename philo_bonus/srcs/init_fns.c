@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_fns.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 15:22:08 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:30:59 by eamsalem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo_bonus.h"
 
 void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
@@ -8,7 +20,7 @@ void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 	philo->status = -1;
 }
 
-t_philo *init_philos(int no_philos, t_table *table)
+t_philo	*init_philos(int no_philos, t_table *table)
 {
 	int		i;
 	t_philo	*philos;
@@ -40,4 +52,3 @@ int	init_table(t_table *table, int argc, char **argv)
 		return (0);
 	return (1);
 }
-

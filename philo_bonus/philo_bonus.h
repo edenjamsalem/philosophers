@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 15:29:00 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:29:50 by eamsalem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,7 +32,7 @@ typedef struct s_table
 	sem_t			*forks;
 	sem_t			*print_sem;
 	struct timeval	start_time;
-}   t_table;
+}				t_table;
 
 typedef struct s_philo
 {
@@ -33,7 +43,7 @@ typedef struct s_philo
 	pthread_t		monitor;
 	pid_t			pid;
 	int				status;
-}   t_philo;
+}				t_philo;
 
 void			init_philo(t_philo *philo, t_table *table, int seat_nbr);
 

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 16:02:20 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/14 18:09:23 by eamsalem         ###   ########.fr       */
+/*   Created: 2025/01/15 15:21:44 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:34:18 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	destroy_mutexes(pthread_mutex_t *forks, int count)
 
 double	calc_time_diff(struct timeval *start, struct timeval *end)
 {
-	time_t secs;
-	time_t millisecs;
-	suseconds_t micro_secs;
+	time_t		secs;
+	time_t		millisecs;
+	suseconds_t	micro_secs;
 
 	secs = end->tv_sec - start->tv_sec;
 	micro_secs = end->tv_usec - start->tv_usec;
@@ -68,16 +68,16 @@ double	calc_time_diff(struct timeval *start, struct timeval *end)
 		micro_secs += 1000000;
 		secs--;
 	}
-	millisecs =((double)secs + (double)micro_secs / 1000000.0) * 1000; 
+	millisecs = ((double)secs + (double)micro_secs / 1000000.0) * 1000;
 	return (millisecs);
 }
 
-int get_time_stamp(t_table *table)
+int	get_time_stamp(t_table *table)
 {
-    float 			time_stamp;
+	float			time_stamp;
 	struct timeval	current_time;
 
-    gettimeofday(&current_time, NULL);
-    time_stamp = calc_time_diff(&table->start_time, &current_time);
+	gettimeofday(&current_time, NULL);
+	time_stamp = calc_time_diff(&table->start_time, &current_time);
 	return (time_stamp);
 }

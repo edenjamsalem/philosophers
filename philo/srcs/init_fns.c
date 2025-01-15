@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_fns.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 15:22:53 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:30:34 by eamsalem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../philo.h"
 
 static void	assign_forks(t_philo *philo, t_table *table)
@@ -21,7 +33,7 @@ void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 	pthread_mutex_init(&philo->last_ate_mutex, NULL);
 }
 
-t_philo *init_philos(int no_philos, t_table *table)
+t_philo	*init_philos(int no_philos, t_table *table)
 {
 	int		i;
 	t_philo	*philos;
@@ -53,7 +65,7 @@ pthread_mutex_t	*init_forks(int count)
 		{
 			destroy_mutexes(forks, i - 1);
 			free(forks);
-			return (NULL);	
+			return (NULL);
 		}
 		i++;
 	}
@@ -75,4 +87,3 @@ int	init_table(t_table *table, int argc, char **argv)
 	pthread_mutex_init(&table->print_mutex, NULL);
 	return (1);
 }
-

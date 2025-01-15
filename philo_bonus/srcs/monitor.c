@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 15:21:59 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:32:42 by eamsalem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../philo_bonus.h"
 
@@ -15,12 +26,12 @@ bool	is_dead(t_table *table, t_philo *philo)
 
 void	*check_if_dead(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	while (!is_dead(philo->table, philo))
 		usleep(1000);
-    cleanup_table(philo->table);
+	cleanup_table(philo->table);
 	exit(1);
 }
 
@@ -44,7 +55,7 @@ static int	monitor_child_processes(t_table *table, t_philo *philos)
 		}
 		(philos + i)->status = -1;
 		return (1);
-	}	
+	}
 	return (0);
 }
 
@@ -58,7 +69,7 @@ bool	processes_running(t_table *table, t_philo *philos)
 	{
 		exit_status = monitor_child_processes(table, philos);
 		if (exit_status == -1)
-			return (0); 
+			return (0);
 		finished_count += exit_status;
 	}
 	return (0);

@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 15:23:49 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:25:07 by eamsalem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,7 +28,7 @@ typedef struct s_table
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	struct timeval	start_time;
-}   t_table;
+}				t_table;
 
 typedef struct s_philo
 {
@@ -31,7 +41,7 @@ typedef struct s_philo
 	struct timeval	time_last_ate;
 	bool			finished_eating;
 	t_table			*table;
-}   t_philo;
+}				t_philo;
 
 void			init_philo(t_philo *philo, t_table *table, int seat_nbr);
 
@@ -49,7 +59,8 @@ double			calc_time_diff(struct timeval *start, struct timeval *end);
 
 int				get_time_stamp(t_table *table);
 
-void			take_fork(pthread_mutex_t *fork, t_table *table, t_philo *philo);
+void			take_fork(pthread_mutex_t *fork, t_table *table, \
+														t_philo *philo);
 
 void			eating(t_table *table, t_philo *philo);
 

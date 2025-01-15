@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 15:01:51 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:02:17 by eamsalem         ###   ########.fr       */
+/*   Created: 2025/01/15 15:22:59 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:28:29 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool	philo_died(t_table *table, t_philo *philos)
 	{
 		if (is_dead(table, philos + i))
 		{
- 	        print_msg("died", table, philos + i);
+			print_msg("died", table, philos + i);
 			return (1);
 		}
 		i++;
@@ -56,7 +56,7 @@ bool	philos_finished(t_table *table, t_philo *philos)
 			finished_count++;
 		i++;
 	}
-	if (finished_count == table->no_philos)	
+	if (finished_count == table->no_philos)
 		return (1);
 	return (0);
 }

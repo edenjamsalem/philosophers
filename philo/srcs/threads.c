@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 15:14:35 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 14:28:53by eamsalem         ###   ########.fr       */
+/*   Created: 2025/01/15 15:22:36 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:27:37 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_threads(t_philo *philos, t_table *table)
 	while (i < table->no_philos)
 	{
 		thread = &((philos + i)->thread);
-		id = &((philos + i)->id); 
+		id = &((philos + i)->id);
 		*id = pthread_create(thread, NULL, &routine, (void *)(philos + i));
 		i++;
 	}

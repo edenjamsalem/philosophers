@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 15:22:04 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:32:02 by eamsalem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../philo_bonus.h"
 
@@ -62,11 +73,13 @@ int	main(int argc, char **argv)
 	wait_for_pids(&table, philos);
 	if (!table.no_times_to_eat)
 	{
-		while (!philo_died(&table, philos));
+		while (!philo_died(&table, philos))
+			usleep(100);
 	}
 	else
 	{
-		while (processes_running(&table, philos));
+		while (processes_running(&table, philos))
+			usleep(100);
 	}
 	cleanup_table(&table);
 	free(philos);

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 15:22:48 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:26:15 by eamsalem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../philo.h"
 
@@ -48,7 +59,8 @@ int	main(int argc, char **argv)
 		return (0);
 	run_threads(philos, &table);
 	detach_threads(&table, philos);
-	while (!philo_died(&table, philos) && !philos_finished(&table, philos));
+	while (!philo_died(&table, philos) && !philos_finished(&table, philos))
+		usleep(100);
 	destroy_mutexes(table.forks, table.no_philos);
 	free(philos);
 	free(table.forks);

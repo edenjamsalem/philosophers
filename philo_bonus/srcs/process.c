@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/10 15:14:35 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/14 18:57:01 by eamsalem         ###   ########.fr       */
+/*   Created: 2025/01/15 15:21:55 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/15 15:33:12 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	eat_until_finished(t_table *table, t_philo *philo)
 		sleeping(table, philo);
 		thinking(table, philo);
 		no_times_eaten++;
-	}	
+	}
 	exit(0);
 }
 
@@ -49,17 +49,17 @@ void	process(t_table *table, t_philo *philo)
 		eat_until_finished(table, philo);
 }
 
-pid_t   ft_fork(void)
+pid_t	ft_fork(void)
 {
-	pid_t   pid;
+	pid_t	pid;
 
-    pid = fork();
-    if (pid < 0)
-    {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
-    return (pid);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	return (pid);
 }
 
 void	run_processes(t_philo *philos, t_table *table)
