@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:48 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:26:15 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:32:20 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,12 @@ int	main(int argc, char **argv)
 		return (0);
 	run_threads(philos, &table);
 	detach_threads(&table, philos);
-	while (!philo_died(&table, philos) && !philos_finished(&table, philos))
-		usleep(100);
+	if (table.no_times_to_eat)
+		while (!philos_finished(&table, philos) && !philo_died(&table, philos))
+			usleep(200);
+	else
+		while (!philo_died(&table, philos))
+			usleep(200);
 	destroy_mutexes(table.forks, table.no_philos);
 	free(philos);
 	free(table.forks);
