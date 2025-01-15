@@ -2,16 +2,17 @@ NAME = philo.out
 
 CFLAGS = -Wall -Werror -Wextra -g3 -pthread
 
-OBJDIR = ./build
-OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
-
 SRCDIR = srcs
-SRCS =	$(SRCDIR)/philo.c \
+SRCS =	$(SRCDIR)/main.c \
 		$(SRCDIR)/actions.c \
 		$(SRCDIR)/init_fns.c \
 		$(SRCDIR)/routine.c \
 		$(SRCDIR)/threads.c \
+		$(SRCDIR)/check_state.c \
 		$(SRCDIR)/utils.c
+
+OBJDIR = ./build
+OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
 
 all: $(OBJDIR) $(NAME)
 

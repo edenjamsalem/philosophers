@@ -15,6 +15,7 @@ void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 	philo->thread = 0;
 	philo->table = table;
 	philo->seat_nbr = seat_nbr;
+	philo->finished_eating = false;
 	assign_forks(philo, table);
 	philo->time_last_ate = table->start_time;
 	pthread_mutex_init(&philo->last_ate_mutex, NULL);

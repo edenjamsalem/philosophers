@@ -12,7 +12,8 @@ void	eat_until_finished(t_table *table, t_philo *philo)
 		sleeping(table, philo);
 		thinking(table, philo);
 		no_times_eaten++;
-	}	
+	}
+	philo->finished_eating = true;
 }
 
 void	eat_infinitely(t_table *table, t_philo *philo)
@@ -32,6 +33,12 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	table = philo->table;
+	if (table->no_philos == 1)
+	{
+		take_fork(philo->right_fork, table, philo);
+		usleep((table->time_to_die + 1) * 1000);
+		return (NULL);
+	}
 	if (!table->no_times_to_eat)
 		eat_infinitely(table, philo);
 	else

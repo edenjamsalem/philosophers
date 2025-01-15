@@ -18,7 +18,6 @@ typedef struct s_table
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	struct timeval	start_time;
-	pthread_t		monitor;
 }   t_table;
 
 typedef struct s_philo
@@ -30,6 +29,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	last_ate_mutex;
 	struct timeval	time_last_ate;
+	bool			finished_eating;
 	t_table			*table;
 }   t_philo;
 
@@ -63,12 +63,10 @@ void			join_threads(t_table *table, t_philo *philos);
 
 void			detach_threads(t_table *table, t_philo *philos);
 
-void	 		free_philos(t_table *table, t_philo *philos);
-
-void			free_table(t_table *table);
-
 void			destroy_mutexes(pthread_mutex_t *forks, int count);
 
 void			print_msg(char *msg, t_table *table, t_philo *philo);
 
 bool			philo_died(t_table *table, t_philo *philos);
+
+bool			philos_finished(t_table *table, t_philo *philos);
