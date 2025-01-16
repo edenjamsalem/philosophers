@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:42 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:22:44 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:58:59 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	eat_until_finished(t_table *table, t_philo *philo)
 		thinking(table, philo);
 		no_times_eaten++;
 	}
+	pthread_mutex_lock(&philo->finished_mutex);
 	philo->finished_eating = true;
+	pthread_mutex_unlock(&philo->finished_mutex);
 }
 
 void	eat_infinitely(t_table *table, t_philo *philo)

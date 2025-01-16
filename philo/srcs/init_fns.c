@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:53 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:30:34 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:55:04 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 	assign_forks(philo, table);
 	philo->time_last_ate = table->start_time;
 	pthread_mutex_init(&philo->last_ate_mutex, NULL);
+	pthread_mutex_init(&philo->finished_mutex, NULL);
 }
 
 t_philo	*init_philos(int no_philos, t_table *table)

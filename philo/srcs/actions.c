@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:04 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 18:31:17 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:09:39 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	eating(t_table *table, t_philo *philo)
 	if (philo->seat_nbr % 2 != 0 && philo->seat_nbr != table->no_philos)
 	{
 		take_fork(philo->right_fork, table, philo);
-		usleep(500);
+		usleep(200);
 		take_fork(philo->left_fork, table, philo);
 	}
 	else
 	{
 		take_fork(philo->left_fork, table, philo);
-		usleep(500);
+		usleep(200);
 		take_fork(philo->right_fork, table, philo);
 	}
 	print_msg("is eating", table, philo);

@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:29 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:27:17 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:33:57 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	print_msg(char *msg, t_table *table, t_philo *philo)
 {
 	pthread_mutex_lock(&table->print_mutex);
 	printf("%d %d %s\n", get_time_stamp(table), philo->seat_nbr, msg);
-	pthread_mutex_unlock(&table->print_mutex);
+	if (*msg != 'd')
+		pthread_mutex_unlock(&table->print_mutex);
 }
 
 void	destroy_mutexes(pthread_mutex_t *forks, int count)
