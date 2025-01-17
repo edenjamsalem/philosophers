@@ -6,26 +6,49 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:44 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:34:18 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:41:00 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_bonus.h"
 
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
+{
+	size_t	i;
+	size_t	j;
+	size_t	dest_size;
+	size_t	src_size;
+
+	dest_size = ft_strlen(dest);
+	src_size = ft_strlen(src);
+	if (size <= dest_size)
+		return (src_size + size);
+	i = dest_size;
+	j = 0;
+	while (src[j] && i < (size - 1))
+		dest[i++] = src[j++];
+	dest[i] = '\0';
+	return (dest_size + src_size);
+}
+
 int	ft_atoi(const char *str)
 {
 	int		i;
-	int		sign;
 	int		nbr_int;
 
 	i = 0;
-	sign = 1;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
 	nbr_int = 0;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
@@ -33,26 +56,32 @@ int	ft_atoi(const char *str)
 		nbr_int += str[i] - '0';
 		i++;
 	}
-	return (nbr_int * sign);
+	return (nbr_int);
+}
+
+char	*ft_itoa(char *str, int nbr)
+{
+	char	tmp[4];
+	int		i;
+
+	while (nbr != 0)
+	{
+		tmp[i] = (nbr % 10) + '0';
+		nbr /= 10;
+		i++;
+	}
+	str[i] = '\0';
+	while (--i >= 0)
+		str[i] = tmp[i];
+	return (str);
 }
 
 void	print_msg(char *msg, t_table *table, t_philo *philo)
 {
 	sem_wait(table->print_sem);
 	printf("%d %d %s\n", get_time_stamp(table), philo->seat_nbr, msg);
-	sem_post(table->print_sem);
-}
-
-void	destroy_mutexes(pthread_mutex_t *forks, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		pthread_mutex_destroy(forks + i);
-		i++;
-	}
+	if (*msg != 'd')
+		sem_post(table->print_sem);
 }
 
 double	calc_time_diff(struct timeval *start, struct timeval *end)

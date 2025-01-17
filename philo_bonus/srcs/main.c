@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:04 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:32:02 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:35:43 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,6 @@ int	check_input(int argc, char **argv)
 	return (1);
 }
 
-void	wait_for_pids(t_table *table, t_philo *philos)
-{
-	int	i;
-
-	i = 0;
-	while (i < table->no_philos)
-	{
-		waitpid((philos + i)->pid, &(philos + i)->status, 0);
-		i++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_table		table;
@@ -70,17 +58,8 @@ int	main(int argc, char **argv)
 	if (!philos)
 		return (0);
 	run_processes(philos, &table);
-	wait_for_pids(&table, philos);
-	if (!table.no_times_to_eat)
-	{
-		while (!philo_died(&table, philos))
-			usleep(100);
-	}
-	else
-	{
-		while (processes_running(&table, philos))
-			usleep(100);
-	}
+	while (processes_running(&table, philos))
+		usleep(200);
 	cleanup_table(&table);
 	free(philos);
 }

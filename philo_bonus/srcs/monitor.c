@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:32:42 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:54:04 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,76 +24,53 @@ bool	is_dead(t_table *table, t_philo *philo)
 	return (0);
 }
 
+
 void	*check_if_dead(void *arg)
 {
 	t_philo	*philo;
+	t_table	*table;
 
 	philo = (t_philo *)arg;
+	table = philo->table;
 	while (!is_dead(philo->table, philo))
 		usleep(1000);
-	cleanup_table(philo->table);
-	exit(1);
+	print_msg("died", table, philo);
+	//cleanup()
+	exit(IS_DEAD);
 }
 
-static int	monitor_child_processes(t_table *table, t_philo *philos)
+void	*wait_til_done(void *arg)
+{
+	t_philo	*philo;
+	int		exit_status;
+
+	philo = (t_philo *)arg;
+	waitpid(philo->pid, &exit_status, 0);
+	if (WIFEXITED(exit_status))
+		philo->status = WEXITSTATUS(exit_status);
+	return (NULL);
+}
+
+int	processes_running(t_table *table, t_philo *philos)
 {
 	int	i;
-
-	i = 0;
-	while ((philos + i)->status == -1)
-		i++;
-	if (i == table->no_philos)
-		return (0);
-	else if (WIFEXITED((philos + i)->status))
-	{
-		(philos + i)->is_dead = WEXITSTATUS((philos + i)->status);
-		if ((philos + i)->is_dead)
-		{
-			kill_children(table, philos);
-			print_msg("died", table, philos + i);
-			return (-1);
-		}
-		(philos + i)->status = -1;
-		return (1);
-	}
-	return (0);
-}
-
-bool	processes_running(t_table *table, t_philo *philos)
-{
 	int	finished_count;
-	int	exit_status;
-
-	finished_count = 0;
-	while (finished_count < table->no_philos)
-	{
-		exit_status = monitor_child_processes(table, philos);
-		if (exit_status == -1)
-			return (0);
-		finished_count += exit_status;
-	}
-	return (0);
-}
-
-bool	philo_died(t_table *table, t_philo *philos)
-{
-	int	i;
 
 	i = 0;
+	finished_count = 0;
 	while (i < table->no_philos)
 	{
-		if ((philos + i)->status)
+		if ((philos + i)->status == IS_FINISHED)
+			finished_count++;
+		else if ((philos + i)->status == IS_DEAD)
 		{
-			if (WIFEXITED((philos + i)->status))
-				(philos + i)->is_dead = WEXITSTATUS((philos + i)->status);
-			if ((philos + i)->is_dead)
-			{
-				kill_children(table, philos);
-				print_msg("died", table, philos + i);
-				return (1);
-			}
+			kill_children(table, philos);
+			return (0);
 		}
 		i++;
 	}
-	return (0);
+	if (finished_count == table->no_philos)
+		return (0);
+	return (1);
+	
 }

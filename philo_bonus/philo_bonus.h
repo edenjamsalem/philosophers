@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:29:00 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/15 15:29:50 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:48:39 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@
 #include <sys/wait.h>
 #include <pthread.h>
 #include <signal.h>
+#include <limits.h>
 #include <fcntl.h>
 #include <semaphore.h>
+
+#define IS_FINISHED 1
+#define IS_DEAD 2
 
 typedef struct s_table
 {
@@ -39,10 +43,9 @@ typedef struct s_philo
 	int				seat_nbr;
 	struct timeval	time_last_ate;
 	t_table			*table;
-	int				is_dead;
+	int				status;
 	pthread_t		monitor;
 	pid_t			pid;
-	int				status;
 }				t_philo;
 
 void			init_philo(t_philo *philo, t_table *table, int seat_nbr);
@@ -81,4 +84,6 @@ void			*check_if_dead(void *arg);
 
 void			kill_children(t_table *table, t_philo *philos);
 
-bool			processes_running(t_table *table, t_philo *philos);
+void			*wait_til_done(void *arg);
+
+int				processes_running(t_table *table, t_philo *philos);
