@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:04 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/16 16:09:39 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:02:14by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	take_fork(pthread_mutex_t *fork, t_table *table, t_philo *philo)
 
 void	eating(t_table *table, t_philo *philo)
 {
-	if (philo->seat_nbr % 2 != 0 && philo->seat_nbr != table->no_philos)
+	if (philo->seat_nbr % 2 != 0)
 	{
 		take_fork(philo->right_fork, table, philo);
 		usleep(200);
@@ -28,8 +28,8 @@ void	eating(t_table *table, t_philo *philo)
 	}
 	else
 	{
-		take_fork(philo->left_fork, table, philo);
 		usleep(200);
+		take_fork(philo->left_fork, table, philo);
 		take_fork(philo->right_fork, table, philo);
 	}
 	print_msg("is eating", table, philo);
@@ -37,16 +37,8 @@ void	eating(t_table *table, t_philo *philo)
 	gettimeofday(&philo->time_last_ate, NULL);
 	pthread_mutex_unlock(&philo->last_ate_mutex);
 	usleep(table->time_to_eat * 1000);
-	if (philo->seat_nbr % 2 != 0)
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
-	}
-	else
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-	}
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 }
 
 void	thinking(t_table *table, t_philo *philo)

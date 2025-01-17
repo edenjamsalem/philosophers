@@ -6,13 +6,13 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/16 16:44:57 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:33:24 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static bool	is_dead(t_table *table, t_philo *philo)
+bool	is_dead(t_table *table, t_philo *philo)
 {
 	struct timeval	current_time;
 	struct timeval	time_last_ate;

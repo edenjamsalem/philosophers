@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:42 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/16 15:58:59 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:17:05 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	*routine(void *arg)
 		usleep((table->time_to_die + 1) * 1000);
 		return (NULL);
 	}
+	if (philo->seat_nbr % 2 != 0)
+		usleep(table->time_to_eat * 1000);
 	if (!table->no_times_to_eat)
 		eat_infinitely(table, philo);
 	else
