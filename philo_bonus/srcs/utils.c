@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:44 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/17 14:41:00 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:32:52 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*ft_itoa(char *str, int nbr)
 	char	tmp[4];
 	int		i;
 
+	i = 0;
 	while (nbr != 0)
 	{
 		tmp[i] = (nbr % 10) + '0';

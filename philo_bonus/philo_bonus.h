@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:29:00 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/17 14:48:39 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:35:54 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_table
 	int				no_times_to_eat;
 	sem_t			*forks;
 	sem_t			*print_sem;
+	sem_t			*last_ate;
 	struct timeval	start_time;
 }				t_table;
 

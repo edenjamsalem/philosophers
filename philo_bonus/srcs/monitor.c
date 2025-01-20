@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/17 14:54:04 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:38:46 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 bool	is_dead(t_table *table, t_philo *philo)
 {
 	struct timeval	current_time;
+	struct timeval	time_last_ate;
 	int				time_since_last_meal;
 
 	gettimeofday(&current_time, NULL);
-	time_since_last_meal = calc_time_diff(&philo->time_last_ate, &current_time);
+	sem_wait(table->last_ate);
+	time_last_ate = philo->time_last_ate;
+	sem_post(table->last_ate);
+	time_since_last_meal = calc_time_diff(&time_last_ate, &current_time);
 	if (time_since_last_meal > table->time_to_die)
 		return (1);
 	return (0);

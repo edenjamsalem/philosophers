@@ -23,7 +23,9 @@ void	eating(t_table *table, t_philo *philo)
 	take_fork(table, philo);
 	take_fork(table, philo);
 	print_msg("is eating", table, philo);
+	sem_wait(table->last_ate);
 	gettimeofday(&philo->time_last_ate, NULL);
+	sem_post(table->last_ate);
 	usleep(table->time_to_eat * 1000);
 	sem_post(table->forks);
 	sem_post(table->forks);
