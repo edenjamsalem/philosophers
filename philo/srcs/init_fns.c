@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:53 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/16 15:55:04 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:13:55 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	assign_forks(t_philo *philo, t_table *table)
 
 void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 {
-	philo->id = 0;
 	philo->thread = 0;
 	philo->table = table;
 	philo->seat_nbr = seat_nbr;
@@ -64,7 +63,7 @@ pthread_mutex_t	*init_forks(int count)
 	{
 		if (pthread_mutex_init(forks + i, NULL) != 0)
 		{
-			destroy_mutexes(forks, i - 1);
+			destroy_fork_mutexes(forks, i - 1);
 			free(forks);
 			return (NULL);
 		}

@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:49 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/16 16:00:52 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:13:48 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,14 @@ typedef struct s_table
 
 typedef struct s_philo
 {
-	int				id;
 	pthread_t		thread;
 	int				seat_nbr;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	last_ate_mutex;
 	struct timeval	time_last_ate;
-	bool			finished_eating;
 	pthread_mutex_t	finished_mutex;
+	bool			finished_eating;
 	t_table			*table;
 }				t_philo;
 
@@ -71,11 +70,11 @@ void			sleeping(t_table *table, t_philo *philo);
 
 void			run_threads(t_philo *philos, t_table *table);
 
-void			join_threads(t_table *table, t_philo *philos);
-
 void			detach_threads(t_table *table, t_philo *philos);
 
-void			destroy_mutexes(pthread_mutex_t *forks, int count);
+void			destroy_fork_mutexes(pthread_mutex_t *forks, int count);
+
+void			destroy_philo_mutexes(t_philo *philos, int count);
 
 void			print_msg(char *msg, t_table *table, t_philo *philo);
 

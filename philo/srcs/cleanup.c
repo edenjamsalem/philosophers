@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 15:22:36 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:14:02 by eamsalem         ###   ########.fr       */
+/*   Created: 2025/01/20 15:10:33 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/20 15:16:41 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	run_threads(t_philo *philos, t_table *table)
-{
-	pthread_t	*thread;
-	int			i;
-
-	i = 0;
-	while (i < table->no_philos)
-	{
-		thread = &((philos + i)->thread);
-		pthread_create(thread, NULL, &routine, (void *)(philos + i));
-		i++;
-	}
-}
-
-void	detach_threads(t_table *table, t_philo *philos)
+void	destroy_fork_mutexes(pthread_mutex_t *forks, int count)
 {
 	int	i;
 
 	i = 0;
-	while (i < table->no_philos)
+	while (i < count)
 	{
-		pthread_detach((philos + i)->thread);
+		pthread_mutex_destroy(forks + i);
+		i++;
+	}
+}
+
+void	destroy_philo_mutexes(t_philo *philos, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		pthread_mutex_destroy(&(philos + i)->finished_mutex);
+		pthread_mutex_destroy(&(philos + i)->last_ate_mutex);
 		i++;
 	}
 }

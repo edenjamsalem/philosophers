@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:29 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/17 11:26:48 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:10:31 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,6 @@ void	print_msg(char *msg, t_table *table, t_philo *philo)
 	printf("%d %d %s\n", time_stamp, philo->seat_nbr, msg);
 	if (*msg != 'd')
 		pthread_mutex_unlock(&table->print_mutex);
-}
-
-void	destroy_mutexes(pthread_mutex_t *forks, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		pthread_mutex_destroy(forks + i);
-		i++;
-	}
 }
 
 double	calc_time_diff(struct timeval *start, struct timeval *end)

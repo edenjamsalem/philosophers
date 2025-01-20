@@ -9,6 +9,7 @@ SRCS =	$(SRCDIR)/main.c \
 		$(SRCDIR)/routine.c \
 		$(SRCDIR)/threads.c \
 		$(SRCDIR)/check_state.c \
+		$(SRCDIR)/cleanup.c \
 		$(SRCDIR)/utils.c
 
 OBJDIR = ./build

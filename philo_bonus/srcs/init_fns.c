@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:08 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 14:36:12 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:03:28 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 {
-//	char	sem_name[10];
-//	char	seat_nbr[4];
-	
 	philo->seat_nbr = seat_nbr;
 	philo->time_last_ate = table->start_time;
 	philo->table = table;
 	philo->status = 0;
-//	ft_strlcat(sem_name, "/philo", 10);
-//	ft_strlcat(sem_name, ft_itoa(seat_nbr, philo->seat_nbr), 10);
 }
 
 t_philo	*init_philos(int no_philos, t_table *table)

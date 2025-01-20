@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:48 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/16 16:47:52 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:08:28 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int	main(int argc, char **argv)
 	else
 		while (!philo_died(&table, philos))
 			usleep(200);
-	destroy_mutexes(table.forks, table.no_philos);
-	free(philos);
+	destroy_fork_mutexes(table.forks, table.no_philos);
+	destroy_philo_mutexes(philos, table.no_philos);
 	free(table.forks);
+	free(philos);
 }

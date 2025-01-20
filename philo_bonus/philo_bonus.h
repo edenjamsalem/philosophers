@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:29:00 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 14:35:54 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:08:15 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			sleeping(t_table *table, t_philo *philo);
 
 void			run_processes(t_philo *philos, t_table *table);
 
-void			destroy_mutexes(pthread_mutex_t *forks, int count);
+void			destroy_fork_mutexes(pthread_mutex_t *forks, int count);
 
 void			print_msg(char *msg, t_table *table, t_philo *philo);
 
@@ -85,6 +85,6 @@ void			*check_if_dead(void *arg);
 
 void			kill_children(t_table *table, t_philo *philos);
 
-void			*wait_til_done(void *arg);
+void			*wait_pids(void *arg);
 
 int				processes_running(t_table *table, t_philo *philos);

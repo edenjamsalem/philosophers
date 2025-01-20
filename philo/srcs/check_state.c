@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/17 11:33:24 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:02:53 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ bool	is_dead(t_table *table, t_philo *philo)
 	struct timeval	current_time;
 	struct timeval	time_last_ate;
 	int				time_since_last_meal;
-	
 
 	gettimeofday(&current_time, NULL);
 	pthread_mutex_lock(&philo->last_ate_mutex);
@@ -59,8 +58,8 @@ bool	philos_finished(t_table *table, t_philo *philos)
 
 bool	finished_eating(t_philo *philo)
 {
-	bool finished;
-	
+	bool	finished;
+
 	pthread_mutex_lock(&philo->finished_mutex);
 	finished = philo->finished_eating;
 	pthread_mutex_unlock(&philo->finished_mutex);

@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 14:38:46 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:06:02 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ bool	is_dead(t_table *table, t_philo *philo)
 	return (0);
 }
 
-
 void	*check_if_dead(void *arg)
 {
 	t_philo	*philo;
@@ -39,11 +38,10 @@ void	*check_if_dead(void *arg)
 	while (!is_dead(philo->table, philo))
 		usleep(1000);
 	print_msg("died", table, philo);
-	//cleanup()
 	exit(IS_DEAD);
 }
 
-void	*wait_til_done(void *arg)
+void	*wait_pids(void *arg)
 {
 	t_philo	*philo;
 	int		exit_status;
@@ -76,5 +74,4 @@ int	processes_running(t_table *table, t_philo *philos)
 	if (finished_count == table->no_philos)
 		return (0);
 	return (1);
-	
 }

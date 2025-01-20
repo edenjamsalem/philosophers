@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:55 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/18 13:55:05 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:04:24 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	run_processes(t_philo *philos, t_table *table)
 		{
 			process(table, philos + i);
 		}
-		pthread_create(&(philos + i)->monitor, NULL, &wait_til_done, philos + i);
+		pthread_create(&(philos + i)->monitor, NULL, &wait_pids, philos + i);
 		pthread_detach((philos + i)->monitor);
 		i++;
 	}
