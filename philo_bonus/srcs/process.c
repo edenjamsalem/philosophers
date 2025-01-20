@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:55 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/17 15:00:35 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/18 13:55:05 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ void	eat_until_finished(t_table *table, t_philo *philo)
 
 void	eat_infinitely(t_table *table, t_philo *philo)
 {
+	int	no_times_eaten;
+
+	no_times_eaten = 0;
 	while (1)
 	{
 		eating(table, philo);
 		sleeping(table, philo);
 		thinking(table, philo);
+		no_times_eaten++;
 	}
 }
 
@@ -41,8 +45,6 @@ void	process(t_table *table, t_philo *philo)
 {
 	pthread_create(&philo->monitor, NULL, check_if_dead, (void *)philo);
 	pthread_detach(philo->monitor);
-//	if (philo->seat_nbr % 2 != 0)
-//		usleep(200);
 	if (!table->no_times_to_eat)
 		eat_infinitely(table, philo);
 	else
