@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:08 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:03:28 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:34:27 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	init_table(t_table *table, int argc, char **argv)
 	table->forks = sem_open("/forks", O_CREAT, 0444, table->no_philos);
 	table->print_sem = sem_open("/print", O_CREAT, 0444, 1);
 	table->last_ate = sem_open("/last_ate", O_CREAT, 0444, 1);
+	table->status_sem = sem_open("/status", O_CREAT, 0444, 1);
 	if (argc == 6)
 		table->no_times_to_eat = ft_atoi(argv[5]);
 	if (gettimeofday(&table->start_time, NULL) == -1)

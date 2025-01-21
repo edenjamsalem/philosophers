@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:29 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:10:31 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:42:49 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	print_msg(char *msg, t_table *table, t_philo *philo)
 	time_stamp = get_time_stamp(table);
 	pthread_mutex_lock(&table->print_mutex);
 	printf("%d %d %s\n", time_stamp, philo->seat_nbr, msg);
-	if (*msg != 'd')
-		pthread_mutex_unlock(&table->print_mutex);
+	pthread_mutex_unlock(&table->print_mutex);
 }
 
 double	calc_time_diff(struct timeval *start, struct timeval *end)

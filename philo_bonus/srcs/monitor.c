@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:06:02 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:36:11 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,18 @@ void	*check_if_dead(void *arg)
 void	*wait_pids(void *arg)
 {
 	t_philo	*philo;
+	t_table	*table;
 	int		exit_status;
 
 	philo = (t_philo *)arg;
+	table = philo->table;
 	waitpid(philo->pid, &exit_status, 0);
 	if (WIFEXITED(exit_status))
+	{
+		sem_wait(table->status_sem);
 		philo->status = WEXITSTATUS(exit_status);
+		sem_post(table->status_sem);
+	}
 	return (NULL);
 }
 
@@ -57,14 +63,18 @@ int	processes_running(t_table *table, t_philo *philos)
 {
 	int	i;
 	int	finished_count;
+	int	status;
 
 	i = 0;
 	finished_count = 0;
 	while (i < table->no_philos)
 	{
-		if ((philos + i)->status == IS_FINISHED)
+		sem_wait(table->status_sem);
+		status = (philos + i)->status;
+		sem_post(table->status_sem);
+		if (status == IS_FINISHED)
 			finished_count++;
-		else if ((philos + i)->status == IS_DEAD)
+		else if (status == IS_DEAD)
 		{
 			kill_children(table, philos);
 			return (0);

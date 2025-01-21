@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:12 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 14:41:15 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:37:55 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	cleanup_table(t_table *table)
 	sem_unlink("/print");
 	sem_close(table->last_ate);
 	sem_unlink("/last_ate");
+	sem_close(table->status_sem);
+	sem_unlink("/status");
 }
 
 void	kill_children(t_table *table, t_philo *philos)

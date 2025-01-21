@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:29:00 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:08:15 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:34:08 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_table
 	sem_t			*forks;
 	sem_t			*print_sem;
 	sem_t			*last_ate;
+	sem_t			*status_sem;
 	struct timeval	start_time;
 }				t_table;
 
