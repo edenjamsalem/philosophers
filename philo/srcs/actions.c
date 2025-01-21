@@ -6,31 +6,41 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:02:31 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 15:40:25 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:19:18 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	take_fork(pthread_mutex_t *fork, t_table *table, t_philo *philo)
+int	take_fork(pthread_mutex_t *fork, t_table *table, t_philo *philo)
 {
 	pthread_mutex_lock(fork);
+	if (access_died_mutex(table))
+	{
+		pthread_mutex_unlock(fork);
+		return (0);
+	}
 	print_msg("has taken a fork", table, philo);
+	return (1);
 }
 
 void	eating(t_table *table, t_philo *philo)
 {
 	if (philo->seat_nbr % 2 != 0)
 	{
-		take_fork(philo->right_fork, table, philo);
+		if(!take_fork(philo->right_fork, table, philo))
+			return ;
 		usleep(200);
-		take_fork(philo->left_fork, table, philo);
+		if(!take_fork(philo->left_fork, table, philo))
+			return ;
 	}
 	else
 	{
 		usleep(200);
-		take_fork(philo->left_fork, table, philo);
-		take_fork(philo->right_fork, table, philo);
+		if(!take_fork(philo->left_fork, table, philo))
+			return ;
+		if(!take_fork(philo->right_fork, table, philo))
+			return ;
 	}
 	print_msg("is eating", table, philo);
 	pthread_mutex_lock(&philo->last_ate_mutex);
@@ -43,11 +53,15 @@ void	eating(t_table *table, t_philo *philo)
 
 void	thinking(t_table *table, t_philo *philo)
 {
+	if (access_died_mutex(table))
+		return ;
 	print_msg("is thinking", table, philo);
 }
 
 void	sleeping(t_table *table, t_philo *philo)
 {
+	if (access_died_mutex(table))
+		return ;
 	print_msg("is sleeping", table, philo);
 	usleep(philo->table->time_to_sleep * 1000);
 }

@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:49 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 15:13:55 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:15:21 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ typedef struct s_table
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				no_times_to_eat;
+	bool			philo_died;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	died_mutex;
-	bool			philo_died;
 	struct timeval	start_time;
 }				t_table;
 
@@ -39,8 +39,8 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	last_ate_mutex;
-	struct timeval	time_last_ate;
 	pthread_mutex_t	finished_mutex;
+	struct timeval	time_last_ate;
 	bool			finished;
 	t_table			*table;
 }				t_philo;
@@ -61,7 +61,7 @@ double			calc_time_diff(struct timeval *start, struct timeval *end);
 
 int				get_time_stamp(t_table *table);
 
-void			take_fork(pthread_mutex_t *fork, t_table *table, \
+int			take_fork(pthread_mutex_t *fork, t_table *table, \
 														t_philo *philo);
 
 void			eating(t_table *table, t_philo *philo);

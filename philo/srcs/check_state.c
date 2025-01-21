@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 15:22:21 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:33:10 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ bool	philo_died(t_table *table, t_philo *philos)
 {
 	int	i;
 
+	if (table->no_philos < 2)
+		return (1);
 	i = 0;
 	while (i < table->no_philos)
 	{
