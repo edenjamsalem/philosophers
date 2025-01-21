@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:04 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/17 14:35:43 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:03:36 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int	check_input(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 	{
 		printf("incorrect number of args\n");
+		return (0);
+	}
+	if (*argv[1] == '0')
+	{
+		printf("must be atleast 1 philosopher\n");
 		return (0);
 	}
 	if (!inputs_are_ints(argc, argv))

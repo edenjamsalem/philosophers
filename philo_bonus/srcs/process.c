@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:55 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:04:24 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:04:25 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ void	run_processes(t_philo *philos, t_table *table)
 	int			i;
 
 	i = 0;
+/*	if (table->no_philos == 1)
+	{
+		take_fork(table, philos);
+		usleep(table->time_to_die * 1000);
+		print_msg("died", table, philos);
+		sem_post(table->forks);
+		exit(IS_DEAD);
+	}*/
 	while (i < table->no_philos)
 	{
 		(philos + i)->pid = ft_fork();

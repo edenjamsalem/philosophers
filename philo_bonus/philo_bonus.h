@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:29:00 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 16:34:08 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:59:14 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,5 @@ void			kill_children(t_table *table, t_philo *philos);
 void			*wait_pids(void *arg);
 
 int				processes_running(t_table *table, t_philo *philos);
+
+void			take_fork(t_table *table, t_philo *philo);
