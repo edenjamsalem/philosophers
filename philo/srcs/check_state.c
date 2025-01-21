@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:02:53 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:22:21 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,18 @@ bool	philo_died(t_table *table, t_philo *philos)
 {
 	int	i;
 
-	i = -1;
-	while (++i < table->no_philos)
+	i = 0;
+	while (i < table->no_philos)
 	{
-		if (is_dead(table, philos + i) && !finished_eating(philos + i))
+		if (is_dead(table, philos + i) && !access_finished_mutex(philos + i))
 		{
 			print_msg("died", table, philos + i);
+			pthread_mutex_lock(&table->died_mutex);
+			table->philo_died = true;
+			pthread_mutex_unlock(&table->died_mutex);
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }
@@ -49,19 +53,31 @@ bool	philos_finished(t_table *table, t_philo *philos)
 	int	i;
 
 	i = 0;
-	while (finished_eating(philos + i))
+	while (access_finished_mutex(philos + i))
+	{
 		i++;
+	}
 	if (i == table->no_philos)
 		return (1);
 	return (0);
 }
 
-bool	finished_eating(t_philo *philo)
+bool	access_finished_mutex(t_philo *philo)
 {
 	bool	finished;
 
 	pthread_mutex_lock(&philo->finished_mutex);
-	finished = philo->finished_eating;
+	finished = philo->finished;
 	pthread_mutex_unlock(&philo->finished_mutex);
 	return (finished);
+}
+
+bool	access_died_mutex(t_table *table)
+{
+	bool	philo_died;
+
+	pthread_mutex_lock(&table->died_mutex);
+	philo_died = table->philo_died;
+	pthread_mutex_unlock(&table->died_mutex);
+	return (philo_died);
 }

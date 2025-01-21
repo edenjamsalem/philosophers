@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:49 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:13:48 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:13:55 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_table
 	int				no_times_to_eat;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	died_mutex;
+	bool			philo_died;
 	struct timeval	start_time;
 }				t_table;
 
@@ -39,7 +41,7 @@ typedef struct s_philo
 	pthread_mutex_t	last_ate_mutex;
 	struct timeval	time_last_ate;
 	pthread_mutex_t	finished_mutex;
-	bool			finished_eating;
+	bool			finished;
 	t_table			*table;
 }				t_philo;
 
@@ -82,4 +84,6 @@ bool			philo_died(t_table *table, t_philo *philos);
 
 bool			philos_finished(t_table *table, t_philo *philos);
 
-bool			finished_eating(t_philo *philo);
+bool			access_finished_mutex(t_philo *philo);
+
+bool			access_died_mutex(t_table *table);

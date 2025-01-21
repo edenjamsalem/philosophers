@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:53 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:13:55 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:11:57 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_philo(t_philo *philo, t_table *table, int seat_nbr)
 	philo->thread = 0;
 	philo->table = table;
 	philo->seat_nbr = seat_nbr;
-	philo->finished_eating = false;
+	philo->finished = false;
 	assign_forks(philo, table);
 	philo->time_last_ate = table->start_time;
 	pthread_mutex_init(&philo->last_ate_mutex, NULL);
@@ -79,11 +79,13 @@ int	init_table(t_table *table, int argc, char **argv)
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
 	table->no_times_to_eat = 0;
+	table->philo_died = false;
 	if (argc == 6)
 		table->no_times_to_eat = ft_atoi(argv[5]);
 	table->forks = init_forks(table->no_philos);
 	if (gettimeofday(&table->start_time, NULL) == -1)
 		return (0);
 	pthread_mutex_init(&table->print_mutex, NULL);
+	pthread_mutex_init(&table->died_mutex, NULL);
 	return (1);
 }

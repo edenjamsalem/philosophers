@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:02:31 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:02:32 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:36:02by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	eating(t_table *table, t_philo *philo)
 
 void	thinking(t_table *table, t_philo *philo)
 {
-	print_msg("is thinking", table, philo);
+		print_msg("is thinking", table, philo);
 }
 
 void	sleeping(t_table *table, t_philo *philo)
