@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:02:31 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 18:19:18 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:46:40 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	eating(t_table *table, t_philo *philo)
 			return ;
 		usleep(200);
 		if(!take_fork(philo->left_fork, table, philo))
+		{
+			pthread_mutex_unlock(philo->right_fork);
 			return ;
+		}
 	}
 	else
 	{
@@ -40,7 +43,10 @@ void	eating(t_table *table, t_philo *philo)
 		if(!take_fork(philo->left_fork, table, philo))
 			return ;
 		if(!take_fork(philo->right_fork, table, philo))
+		{
+			pthread_mutex_unlock(philo->left_fork);
 			return ;
+		}
 	}
 	print_msg("is eating", table, philo);
 	pthread_mutex_lock(&philo->last_ate_mutex);

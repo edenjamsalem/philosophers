@@ -8,7 +8,7 @@ SRCS =	$(SRCDIR)/main.c \
 		$(SRCDIR)/init_fns.c \
 		$(SRCDIR)/routine.c \
 		$(SRCDIR)/threads.c \
-		$(SRCDIR)/check_state.c \
+		$(SRCDIR)/monitor.c \
 		$(SRCDIR)/cleanup.c \
 		$(SRCDIR)/utils.c
 

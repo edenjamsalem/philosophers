@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:29 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 17:52:45 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:33:19 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,3 +72,20 @@ int	get_time_stamp(t_table *table)
 	time_stamp = calc_time_diff(&table->start_time, &current_time);
 	return (time_stamp);
 }
+
+bool	is_dead(t_table *table, t_philo *philo)
+{
+	struct timeval	current_time;
+	struct timeval	time_last_ate;
+	int				time_since_last_meal;
+
+	gettimeofday(&current_time, NULL);
+	pthread_mutex_lock(&philo->last_ate_mutex);
+	time_last_ate = philo->time_last_ate;
+	pthread_mutex_unlock(&philo->last_ate_mutex);
+	time_since_last_meal = calc_time_diff(&time_last_ate, &current_time);
+	if (time_since_last_meal > table->time_to_die)
+		return (1);
+	return (0);
+}
+

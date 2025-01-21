@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_state.c                                      :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 17:33:10 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:33:36 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-
-bool	is_dead(t_table *table, t_philo *philo)
-{
-	struct timeval	current_time;
-	struct timeval	time_last_ate;
-	int				time_since_last_meal;
-
-	gettimeofday(&current_time, NULL);
-	pthread_mutex_lock(&philo->last_ate_mutex);
-	time_last_ate = philo->time_last_ate;
-	pthread_mutex_unlock(&philo->last_ate_mutex);
-	time_since_last_meal = calc_time_diff(&time_last_ate, &current_time);
-	if (time_since_last_meal > table->time_to_die)
-		return (1);
-	return (0);
-}
 
 bool	philo_died(t_table *table, t_philo *philos)
 {
@@ -50,15 +34,13 @@ bool	philo_died(t_table *table, t_philo *philos)
 	return (0);
 }
 
-bool	philos_finished(t_table *table, t_philo *philos)
+bool	threads_finished(t_table *table, t_philo *philos)
 {
 	int	i;
 
 	i = 0;
 	while (access_finished_mutex(philos + i))
-	{
 		i++;
-	}
 	if (i == table->no_philos)
 		return (1);
 	return (0);
@@ -82,4 +64,14 @@ bool	access_died_mutex(t_table *table)
 	philo_died = table->philo_died;
 	pthread_mutex_unlock(&table->died_mutex);
 	return (philo_died);
+}
+
+void	monitor_threads(t_table *table, t_philo *philos)
+{
+	if (table->no_times_to_eat)
+		while (!threads_finished(table, philos) && !philo_died(table, philos))
+			usleep(200);
+	else
+		while (!philo_died(table, philos))
+			usleep(200);
 }

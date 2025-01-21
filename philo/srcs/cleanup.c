@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:10:33 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:16:41 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:29:37 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,14 @@ void	destroy_philo_mutexes(t_philo *philos, int count)
 		pthread_mutex_destroy(&(philos + i)->last_ate_mutex);
 		i++;
 	}
+}
+
+void	cleanup(t_table *table, t_philo *philos)
+{
+	destroy_fork_mutexes(table->forks, table->no_philos);
+	destroy_philo_mutexes(philos, table->no_philos);
+	pthread_mutex_destroy(&table->died_mutex);
+	pthread_mutex_destroy(&table->print_mutex);
+	free(table->forks);
+	free(philos);
 }

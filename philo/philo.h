@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:49 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 18:15:21 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/21 18:38:12 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ double			calc_time_diff(struct timeval *start, struct timeval *end);
 
 int				get_time_stamp(t_table *table);
 
-int			take_fork(pthread_mutex_t *fork, t_table *table, \
+int				take_fork(pthread_mutex_t *fork, t_table *table, \
 														t_philo *philo);
 
 void			eating(t_table *table, t_philo *philo);
@@ -82,8 +82,14 @@ void			print_msg(char *msg, t_table *table, t_philo *philo);
 
 bool			philo_died(t_table *table, t_philo *philos);
 
-bool			philos_finished(t_table *table, t_philo *philos);
+bool			threads_finished(t_table *table, t_philo *philos);
 
 bool			access_finished_mutex(t_philo *philo);
 
 bool			access_died_mutex(t_table *table);
+
+void			cleanup(t_table *table, t_philo *philos);
+
+void			monitor_threads(t_table *table, t_philo *philos);
+
+bool			is_dead(t_table *table, t_philo *philo);
