@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:48 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 18:33:40 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:45:04 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ int	check_input(int argc, char **argv)
 	return (1);
 }
 
+void wait_for_threads_to_close(t_table *table, t_philo *philos)
+{
+	while (!threads_finished(table, philos))
+		usleep(500);
+}
+
 int	main(int argc, char **argv)
 {
 	t_table		table;
@@ -65,7 +71,6 @@ int	main(int argc, char **argv)
 	run_threads(philos, &table);
 	detach_threads(&table, philos);
 	monitor_threads(&table, philos);
-	while (!threads_finished(&table, philos))
-		usleep(500);
+	wait_for_threads_to_close(&table, philos);
 	cleanup(&table, philos);
 }

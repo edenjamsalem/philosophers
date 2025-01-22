@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 18:33:36 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:13:00 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	threads_finished(t_table *table, t_philo *philos)
 	int	i;
 
 	i = 0;
-	while (access_finished_mutex(philos + i))
+	while (i < table->no_philos && access_finished_mutex(philos + i))
 		i++;
 	if (i == table->no_philos)
 		return (1);
