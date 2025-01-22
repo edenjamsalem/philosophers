@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:36 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/20 15:14:02 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:53:49 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ void	detach_threads(t_table *table, t_philo *philos)
 		pthread_detach((philos + i)->thread);
 		i++;
 	}
+}
+
+void	wait_for_threads_to_close(t_table *table, t_philo *philos)
+{
+	while (!threads_finished(table, philos))
+		usleep(500);
 }

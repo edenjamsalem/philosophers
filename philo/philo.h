@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:49 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/22 16:42:24 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:54:23 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,3 +90,5 @@ void			cleanup(t_table *table, t_philo *philos);
 void			monitor_threads(t_table *table, t_philo *philos);
 
 bool			is_dead(t_table *table, t_philo *philo);
+
+void			wait_for_threads_to_close(t_table *table, t_philo *philos);
