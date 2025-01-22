@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:49 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/22 15:43:30 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:42:24 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_table
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	died_mutex;
-//	bool			all_finished_mutex;
 	struct timeval	start_time;
 }				t_table;
 
@@ -61,9 +60,6 @@ void			*routine(void *arg);
 double			calc_time_diff(struct timeval *start, struct timeval *end);
 
 int				get_time_stamp(t_table *table);
-
-int				take_fork(pthread_mutex_t *fork, t_table *table, \
-														t_philo *philo);
 
 void			eating(t_table *table, t_philo *philo);
 

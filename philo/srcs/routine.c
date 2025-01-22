@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 15:22:42 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 15:04:42by eamsalem         ###   ########.fr       */
+/*   Created: 2025/01/22 16:50:26 by eamsalem          #+#    #+#             */
+/*   Updated: 2025/01/22 16:50:28 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	eat_infinitely(t_table *table, t_philo *philo)
 
 void	handle_single_philo(t_table *table, t_philo *philo)
 {
-	take_fork(philo->right_fork, table, philo);
+	pthread_mutex_lock(philo->right_fork);
+	print_msg("has taken a fork", table, philo);
 	usleep((table->time_to_die) * 1000);
 	print_msg("died", table, philo);
 	pthread_mutex_unlock(philo->right_fork);

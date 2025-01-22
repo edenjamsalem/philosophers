@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:29 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 18:33:19 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:28:38 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,3 @@ bool	is_dead(t_table *table, t_philo *philo)
 		return (1);
 	return (0);
 }
-

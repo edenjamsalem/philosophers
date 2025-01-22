@@ -6,48 +6,64 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:02:31 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 18:46:40 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:46:28 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	take_fork(pthread_mutex_t *fork, t_table *table, t_philo *philo)
+bool	take_right_then_left(t_table *table, t_philo *philo)
 {
-	pthread_mutex_lock(fork);
+	pthread_mutex_lock(philo->right_fork);
 	if (access_died_mutex(table))
 	{
-		pthread_mutex_unlock(fork);
-		return (0);
+		pthread_mutex_unlock(philo->right_fork);
+		return (1);
 	}
 	print_msg("has taken a fork", table, philo);
-	return (1);
+	usleep(200);
+	pthread_mutex_lock(philo->left_fork);
+	if (access_died_mutex(table))
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
+		return (1);
+	}
+	print_msg("has taken a fork", table, philo);
+	return (0);
+}
+
+bool	take_left_then_right(t_table *table, t_philo *philo)
+{
+	usleep(200);
+	pthread_mutex_lock(philo->left_fork);
+	if (access_died_mutex(table))
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		return (1);
+	}
+	print_msg("has taken a fork", table, philo);
+	pthread_mutex_lock(philo->right_fork);
+	if (access_died_mutex(table))
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
+		return (1);
+	}
+	print_msg("has taken a fork", table, philo);
+	return (0);
 }
 
 void	eating(t_table *table, t_philo *philo)
 {
+	bool	died_waiting;
+
 	if (philo->seat_nbr % 2 != 0)
-	{
-		if(!take_fork(philo->right_fork, table, philo))
-			return ;
-		usleep(200);
-		if(!take_fork(philo->left_fork, table, philo))
-		{
-			pthread_mutex_unlock(philo->right_fork);
-			return ;
-		}
-	}
+		died_waiting = take_right_then_left(table, philo);
 	else
-	{
-		usleep(200);
-		if(!take_fork(philo->left_fork, table, philo))
-			return ;
-		if(!take_fork(philo->right_fork, table, philo))
-		{
-			pthread_mutex_unlock(philo->left_fork);
-			return ;
-		}
-	}
+		died_waiting = take_left_then_right(table, philo);
+	if (died_waiting)
+		return ;
 	print_msg("is eating", table, philo);
 	pthread_mutex_lock(&philo->last_ate_mutex);
 	gettimeofday(&philo->time_last_ate, NULL);
