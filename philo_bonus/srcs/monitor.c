@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:21:59 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 16:36:11 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:51:35 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	processes_running(t_table *table, t_philo *philos)
 		else if (status == IS_DEAD)
 		{
 			kill_children(table, philos);
+			sem_post(table->print_sem);
 			return (0);
 		}
 		i++;

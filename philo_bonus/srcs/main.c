@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:04 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/21 17:03:36 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:45:01 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv)
 		return (0);
 	run_processes(philos, &table);
 	while (processes_running(&table, philos))
-		usleep(200);
+		usleep(500);
 	cleanup_table(&table);
 	free(philos);
 }
