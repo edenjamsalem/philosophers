@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:23:49 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/22 16:54:23 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:27:37 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void			run_threads(t_philo *philos, t_table *table);
 void			detach_threads(t_table *table, t_philo *philos);
 
 void			destroy_fork_mutexes(pthread_mutex_t *forks, int count);
+
+void			join_threads(t_table *table, t_philo *philos);
 
 void			destroy_philo_mutexes(t_philo *philos, int count);
 

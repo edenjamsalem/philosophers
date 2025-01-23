@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:10:33 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/22 16:48:40 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/23 12:39:58 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	destroy_fork_mutexes(pthread_mutex_t *forks, int count)
 	i = 0;
 	while (i < count)
 	{
+		pthread_mutex_lock(forks + i);
+		pthread_mutex_unlock(forks + i);
 		pthread_mutex_destroy(forks + i);
 		i++;
 	}
@@ -31,7 +33,11 @@ void	destroy_philo_mutexes(t_philo *philos, int count)
 	i = 0;
 	while (i < count)
 	{
+		pthread_mutex_lock(&(philos + i)->finished_mutex);
+		pthread_mutex_unlock(&(philos + i)->finished_mutex);
 		pthread_mutex_destroy(&(philos + i)->finished_mutex);
+		pthread_mutex_lock(&(philos + i)->last_ate_mutex);
+		pthread_mutex_unlock(&(philos + i)->last_ate_mutex);
 		pthread_mutex_destroy(&(philos + i)->last_ate_mutex);
 		i++;
 	}
