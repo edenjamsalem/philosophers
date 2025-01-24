@@ -1,6 +1,6 @@
 NAME = philo.out
 
-CFLAGS = -Wall -Werror -Wextra -g3 -pthread 
+CFLAGS = -Wall -Werror -Wextra -g3 -pthread -fsanitize=thread
 
 SRCDIR = srcs
 SRCS =	$(SRCDIR)/main.c \
