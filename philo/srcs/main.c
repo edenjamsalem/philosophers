@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:22:48 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/23 12:28:22 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:17:03 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ int	main(int argc, char **argv)
 	if (!philos)
 		return (0);
 	run_threads(philos, &table);
-	if (table.no_times_to_eat)
-		join_threads(&table, philos);
-	else
-		detach_threads(&table, philos);
+	detach_threads(&table, philos);
 	monitor_threads(&table, philos);
 	wait_for_threads_to_close(&table, philos);
 	cleanup(&table, philos);

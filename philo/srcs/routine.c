@@ -6,7 +6,7 @@
 /*   By: eamsalem <eamsalem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 16:50:26 by eamsalem          #+#    #+#             */
-/*   Updated: 2025/01/22 16:50:28 by eamsalem         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:17:44 by eamsalem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	eat_until_finished(t_table *table, t_philo *philo)
 	int	no_times_eaten;
 
 	no_times_eaten = 0;
-	while (no_times_eaten < table->no_times_to_eat)
+	while (!access_died_mutex(table) && no_times_eaten < table->no_times_to_eat)
 	{
 		eating(table, philo);
 		sleeping(table, philo);
